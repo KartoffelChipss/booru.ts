@@ -60,10 +60,14 @@ describe('Rule34 (integration)', () => {
                 limit: 5,
             });
             expect(posts.length).toBeGreaterThan(0);
+            // rule34.xxx aliases '1girl' to the canonical tag '1girls', so
+            // matched posts may carry either name in their tag list.
             for (const post of posts) {
-                expect(post.tags.some((tag) => tag.name === '1girl')).toBe(
-                    true
-                );
+                expect(
+                    post.tags.some(
+                        (tag) => tag.name === '1girl' || tag.name === '1girls'
+                    )
+                ).toBe(true);
             }
         });
 
