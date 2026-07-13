@@ -4,12 +4,15 @@
     "description": "A TypeScript library for interacting with the Booru APIs.",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
+    "files": [
+        "dist"
+    ],
     "scripts": {
         "build": "tsc",
         "test": "tsc && jest",
         "test:unit": "tsc && jest tests/unit",
         "test:integration": "tsc && jest tests/integration",
-        "publish": "tsc && npm publish",
+        "prepublishOnly": "tsc",
         "format": "prettier --write 'src/**/*.{ts,tsx}'",
         "testapp": "tsc && cd testapp && tsc && node ./dist/index.js",
         "docs": "typedoc --options typedoc.json",
