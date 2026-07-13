@@ -1,5 +1,6 @@
 export * from './types';
 export * from './BooruSite';
+export * from './CachedBooruSite';
 
 export * from './parser/PostsParser';
 export * from './parser/BasePostsParser';
