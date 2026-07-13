@@ -1,6 +1,6 @@
 {
     "out": "docs",
-    "name": "Typerinth",
+    "name": "booru.ts",
     "includeVersion": true,
     "excludePrivate": true,
     "excludeProtected": true,
@@ -10,8 +10,8 @@
     "readme": "typedoc-readme.md",
     "navigationLinks": {
         "Discord": "https://strassburger.org/discord",
-        "NPM": "https://www.npmjs.com/package/typerinth",
-        "GitHub": "https://github.com/KartoffelChipss/Typerinth"
+        "NPM": "https://www.npmjs.com/package/booru.ts",
+        "GitHub": "https://github.com/KartoffelChipss/booru.ts"
     },
     "disableSources": true,
     "entryPoints": ["src"],
