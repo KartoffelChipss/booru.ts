@@ -84,4 +84,14 @@ describe('Safebooru (integration)', () => {
         });
         expect(page1.map((p) => p.id)).not.toEqual(page2.map((p) => p.id));
     });
+
+    it('autocompletes tags matching the query', async () => {
+        const results = await site.autocomplete('blue');
+        expect(results.length).toBeGreaterThan(0);
+        for (const result of results) {
+            expect(typeof result.label).toBe('string');
+            expect(typeof result.value).toBe('string');
+            expect(result.value.toLowerCase()).toContain('blue');
+        }
+    });
 });

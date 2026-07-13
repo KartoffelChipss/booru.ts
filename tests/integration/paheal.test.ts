@@ -55,4 +55,15 @@ describe('Paheal (integration)', () => {
             /does not support random sorting/
         );
     });
+
+    it('autocompletes tags matching the query', async () => {
+        const results = await site.autocomplete('blue');
+        expect(results.length).toBeGreaterThan(0);
+        for (const result of results) {
+            expect(typeof result.label).toBe('string');
+            expect(typeof result.value).toBe('string');
+            expect(result.label).toContain(result.value);
+            expect(result.value.toLowerCase()).toContain('blue');
+        }
+    });
 });

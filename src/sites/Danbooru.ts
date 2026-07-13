@@ -1,7 +1,12 @@
 import { BooruSite } from '../BooruSite';
 import { DanbooruPostsParser } from '../parser/DanbooruPostsParser';
 import { PostsParser } from '../parser/PostsParser';
-import { BooruSort, BooruSortOrder, MaxTags } from '../types';
+import {
+    BooruAutoCompleteResult,
+    BooruSort,
+    BooruSortOrder,
+    MaxTags,
+} from '../types';
 
 export interface DanbooruCredentials {
     login: string;
@@ -76,5 +81,16 @@ export class Danbooru extends BooruSite {
         if (limit !== undefined) url.searchParams.set('limit', String(limit));
         if (page !== undefined) url.searchParams.set('page', String(page));
         return url;
+    }
+
+    public override async autocomplete(
+        query: string
+    ): Promise<BooruAutoCompleteResult[]> {
+        const url = new URL('https://danbooru.donmai.us/autocomplete.json');
+        url.searchParams.append('search[query]', query);
+        url.searchParams.append('search[type]', 'tag_query');
+        url.searchParams.append('version', '3');
+        url.searchParams.append('limit', '20');
+        return this.fetchAutocomplete(url);
     }
 }

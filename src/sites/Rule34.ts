@@ -1,4 +1,5 @@
 import { GelbooruDapiSite } from './GelbooruDapiSite';
+import { BooruAutoCompleteResult } from '../types';
 
 export interface Rule34Credentials {
     apiKey: string;
@@ -47,5 +48,17 @@ export class Rule34 extends GelbooruDapiSite {
 
     protected getBaseUrl(): string {
         return 'https://api.rule34.xxx/index.php';
+    }
+
+    public override async autocomplete(
+        query: string
+    ): Promise<BooruAutoCompleteResult[]> {
+        return await this.standardAutocomplete(
+            query,
+            `https://api.rule34.xxx/autocomplete.php`,
+            {
+                useCredentials: false,
+            }
+        );
     }
 }

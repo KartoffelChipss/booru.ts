@@ -1,5 +1,6 @@
 import { PostsParser } from './parser/PostsParser';
 import {
+    BooruAutoCompleteResult,
     BooruImage,
     BooruMediaType,
     BooruPost,
@@ -130,4 +131,57 @@ export abstract class BooruSite {
         const parser = this.getPostsParser();
         return parser.parse(rawData);
     }
+
+    protected async fetchAutocomplete(url: URL): Promise<any> {
+        try {
+            const response = await fetch(url.toString());
+            if (!response.ok) {
+                throw new Error(
+                    `Failed to fetch autocomplete results: ${response.statusText}`
+                );
+            }
+            return await response.json();
+        } catch (error) {
+            console.error('Error fetching autocomplete results:', error);
+            return [];
+        }
+    }
+
+    protected async standardAutocomplete(
+        query: string,
+        endpoint: string,
+        options: Partial<{
+            queryParam: string;
+            useCredentials: boolean;
+            mapper: (data: any) => BooruAutoCompleteResult[];
+        }> = {}
+    ): Promise<BooruAutoCompleteResult[]> {
+        const {
+            queryParam = 'q',
+            useCredentials = true,
+            mapper = (data) =>
+                data.map((item: any) => ({
+                    label: item.label,
+                    value: item.value,
+                })),
+        } = options;
+        const url = new URL(endpoint);
+        url.searchParams.append(queryParam, query);
+        if (useCredentials) {
+            for (const [key, value] of Object.entries(
+                this.getCredentials() || {}
+            )) {
+                url.searchParams.append(key, value);
+            }
+        }
+        const data = await this.fetchAutocomplete(url);
+        return mapper ? mapper(data) : data;
+    }
+
+    /**
+     * Get autocomplete suggestions for a given query.
+     * @param query The partial tag query to get suggestions for.
+     * @returns An array of autocomplete results.
+     */
+    public abstract autocomplete(query: string): Promise<BooruAutoCompleteResult[]>;
 }

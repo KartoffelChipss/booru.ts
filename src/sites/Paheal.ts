@@ -1,7 +1,7 @@
 import { BooruSite } from '../BooruSite';
 import { PahealPostsParser, PahealRawPost } from '../parser/PahealPostsParser';
 import { PostsParser } from '../parser/PostsParser';
-import { BooruSort, BooruSortOrder } from '../types';
+import { BooruAutoCompleteResult, BooruSort, BooruSortOrder } from '../types';
 
 export class Paheal extends BooruSite {
     private static readonly TAG_ELEMENT_REGEX = /<tag\s+([^>]*)>/g;
@@ -82,6 +82,23 @@ export class Paheal extends BooruSite {
         }
 
         return posts;
+    }
+
+    public override autocomplete(
+        query: string
+    ): Promise<BooruAutoCompleteResult[]> {
+        return this.standardAutocomplete(
+            query,
+            `https://rule34.paheal.net/api/internal/autocomplete`,
+            {
+                queryParam: 's',
+                mapper: (data) =>
+                    Object.entries(data).map(([key, value]) => ({
+                        label: `${key} (${(value as any).count})`,
+                        value: key,
+                    })),
+            }
+        );
     }
 
     private unescapeXml(value: string): string {

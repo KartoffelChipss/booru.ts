@@ -20,6 +20,20 @@ describe('Rule34 (integration)', () => {
         expect(site.canSortRandomly()).toBe(true);
     });
 
+    // The autocomplete endpoint doesn't require the api_key/user_id that
+    // posts search needs, so this runs unconditionally with dummy
+    // construction credentials.
+    it('autocompletes tags matching the query', async () => {
+        const site = new Rule34({ apiKey: 'dummy', userId: '1' });
+        const results = await site.autocomplete('blue');
+        expect(results.length).toBeGreaterThan(0);
+        for (const result of results) {
+            expect(typeof result.label).toBe('string');
+            expect(typeof result.value).toBe('string');
+            expect(result.value.toLowerCase()).toContain('blue');
+        }
+    });
+
     // rule34.xxx has required a real account's api_key + user_id for every
     // API request since 2025-08-19, so the tests below only run when
     // RULE34_API_KEY and RULE34_USER_ID are set in the environment.

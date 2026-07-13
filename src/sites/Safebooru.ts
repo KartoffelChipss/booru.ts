@@ -1,4 +1,5 @@
 import { GelbooruDapiSite } from './GelbooruDapiSite';
+import { BooruAutoCompleteResult } from '../types';
 
 export class Safebooru extends GelbooruDapiSite {
     public getName(): string {
@@ -23,5 +24,14 @@ export class Safebooru extends GelbooruDapiSite {
 
     protected getBaseUrl(): string {
         return 'https://safebooru.org/index.php';
+    }
+
+    public override async autocomplete(
+        query: string
+    ): Promise<BooruAutoCompleteResult[]> {
+        return await this.standardAutocomplete(
+            query,
+            `https://safebooru.org/autocomplete.php`
+        );
     }
 }
