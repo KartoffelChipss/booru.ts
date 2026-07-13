@@ -139,6 +139,14 @@ export class DanbooruPostsParser implements PostsParser {
             throw new Error('Invalid raw post data: expected an array');
         }
 
-        return rawPosts.map((rawPost) => this.parseSingle(rawPost));
+        const posts: BooruPost[] = [];
+        for (const rawPost of rawPosts) {
+            try {
+                posts.push(this.parseSingle(rawPost));
+            } catch {
+                continue;
+            }
+        }
+        return posts;
     }
 }
