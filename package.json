@@ -1,6 +1,6 @@
 {
     "name": "booru.ts",
-    "version": "1.4.0",
+    "version": "1.0.0",
     "description": "A TypeScript library for interacting with the Booru APIs.",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -13,7 +13,7 @@
         "format": "prettier --write 'src/**/*.{ts,tsx}'",
         "testapp": "tsc && cd testapp && tsc && node ./dist/index.js",
         "docs": "typedoc --options typedoc.json",
-        "opendocs": "bun run docs && open ./docs/index.html"
+        "opendocs": "pnpm run docs && open ./docs/index.html"
     },
     "repository": {
         "type": "git",
