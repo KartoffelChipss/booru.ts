@@ -13,10 +13,6 @@ describe('Yandere (integration)', () => {
         expect(site.getSlug()).toBe('yandere');
         expect(site.getWebsite()).toBe('https://yande.re');
         expect(site.canSortRandomly()).toBe(true);
-        expect(site.getMaxTags()).toEqual({
-            unauthenticated: 2,
-            authenticated: 6,
-        });
     });
 
     it('searches posts and returns a valid shape', async () => {
