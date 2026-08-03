@@ -3,21 +3,21 @@ import { MoebooruPostsParser } from '../parser/MoebooruPostsParser';
 import { PostsParser } from '../parser/PostsParser';
 import { BooruAutoCompleteResult, BooruSort, BooruSortOrder } from '../types';
 
-export class Yandere extends BooruSite {
+export class Konachan extends BooruSite {
     public getName(): string {
-        return 'Yande.re';
+        return 'Konachan';
     }
 
     public getSlug(): string {
-        return 'yandere';
+        return 'konachan';
     }
 
     public getWebsite(): string {
-        return 'https://yande.re';
+        return 'https://konachan.com';
     }
 
     public getFileHosts(): string[] {
-        return ['files.yande.re', 'assets.yande.re'];
+        return ['konachan.com'];
     }
 
     protected getCredentials(): Record<string, string> | null {
@@ -50,7 +50,7 @@ export class Yandere extends BooruSite {
     }
 
     protected getPostsUrl(tags: string[], limit?: number, page?: number): URL {
-        const url = new URL('https://yande.re/post.json');
+        const url = new URL('https://konachan.com/post.json');
         if (tags.length > 0) url.searchParams.set('tags', tags.join(' '));
         if (limit !== undefined) url.searchParams.set('limit', String(limit));
         if (page !== undefined) url.searchParams.set('page', String(page));
@@ -62,7 +62,7 @@ export class Yandere extends BooruSite {
     ): Promise<BooruAutoCompleteResult[]> {
         return this.standardAutocomplete(
             query,
-            'https://yande.re/tag.json?order=count&limit=20',
+            'https://konachan.com/tag.json?order=count&limit=20',
             {
                 queryParam: 'name',
                 useCredentials: false,
