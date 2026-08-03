@@ -12,3 +12,4 @@ export * from './sites/Rule34';
 export * from './sites/Safebooru';
 export * from './sites/Danbooru';
 export * from './sites/Paheal';
+export * from './sites/Yandere';

@@ -1,6 +1,6 @@
 # booru.ts
 
-A TypeScript library for interacting with Booru style image board APIs such as Rule34, Safebooru, Danbooru and Paheal. It gives you one consistent interface for searching posts and autocompleting tags, so you do not have to deal with each site's own API quirks yourself.
+A TypeScript library for interacting with Booru style image board APIs such as Rule34, Safebooru, Danbooru, Paheal and yande.re. It gives you one consistent interface for searching posts and autocompleting tags, so you do not have to deal with each site's own API quirks yourself.
 
 ## Installation
 
@@ -14,6 +14,7 @@ npm install booru.ts
 - Safebooru (safebooru.org)
 - Danbooru (danbooru.donmai.us), login and API key optional, but raise the tag limit
 - Paheal (rule34.paheal.net)
+- yande.re
 
 ## Basic usage
 
@@ -67,9 +68,9 @@ const authedSite = new Danbooru({
 const posts = await authedSite.search({ tags: ['1girl', 'solo'], limit: 5 });
 ```
 
-### Safebooru and Paheal
+### Safebooru, Paheal and yande.re
 
-Both work without any credentials.
+All three work without any credentials.
 
 ```ts
 import { Paheal } from 'booru.ts';
