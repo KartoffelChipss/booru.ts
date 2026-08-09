@@ -9,6 +9,7 @@ export * from './parser/PahealPostsParser';
 export * from './parser/MoebooruPostsParser';
 
 export * from './sites/GelbooruDapiSite';
+export * from './sites/Gelbooru';
 export * from './sites/Rule34';
 export * from './sites/Safebooru';
 export * from './sites/Danbooru';
