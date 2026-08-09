@@ -1,33 +1,33 @@
 import { DanbooruDapiSite } from './DanbooruDapiSite';
 import { BooruAutoCompleteResult, MaxTags } from '../types';
 
-export interface DanbooruCredentials {
+export interface AIBooruCredentials {
     login: string;
     apiKey: string;
 }
 
-export class Danbooru extends DanbooruDapiSite {
-    private readonly credentials: DanbooruCredentials | null;
+export class AIBooru extends DanbooruDapiSite {
+    private readonly credentials: AIBooruCredentials | null;
 
-    public constructor(credentials?: DanbooruCredentials) {
+    public constructor(credentials?: AIBooruCredentials) {
         super();
         this.credentials = credentials ?? null;
     }
 
     public getName(): string {
-        return 'Danbooru';
+        return 'AIBooru';
     }
 
     public getSlug(): string {
-        return 'danbooru';
+        return 'aibooru';
     }
 
     public getWebsite(): string {
-        return 'https://danbooru.donmai.us';
+        return 'https://aibooru.online';
     }
 
     public getFileHosts(): string[] {
-        return ['cdn.donmai.us', 'danbooru.donmai.us'];
+        return ['cdn.aibooru.download', 'aibooru.online'];
     }
 
     protected getCredentials(): Record<string, string> | null {
@@ -39,12 +39,11 @@ export class Danbooru extends DanbooruDapiSite {
     }
 
     public getMaxTags(): MaxTags {
-        // Anonymous/basic accounts get 2 tags; Gold and above get 6+.
-        return { unauthenticated: 2, authenticated: 6 };
+        return { unauthenticated: 4, authenticated: 6 };
     }
 
     protected getBaseUrl(): string {
-        return 'https://danbooru.donmai.us';
+        return 'https://aibooru.online';
     }
 
     public override async autocomplete(
