@@ -44,4 +44,13 @@ export abstract class GelbooruDapiSite extends BooruSite {
         if (page !== undefined) url.searchParams.set('pid', String(page));
         return url;
     }
+
+    // This DAPI returns a zero-byte body (rather than "[]") for searches
+    // with no matching posts, which would otherwise crash response.json().
+    protected override async responseToRawData(
+        response: Response
+    ): Promise<any> {
+        const text = await response.text();
+        return text ? JSON.parse(text) : [];
+    }
 }

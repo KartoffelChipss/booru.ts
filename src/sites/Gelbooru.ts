@@ -55,11 +55,13 @@ export class Gelbooru extends GelbooruDapiSite {
         return 'https://gelbooru.com/index.php';
     }
 
-    // Gelbooru API wraps results as `{ "@attributes": {...}, "post": [...] }` instead of returning a bare array.
+    // Gelbooru API wraps results as `{ "@attributes": {...}, "post": [...] }`
     protected override async responseToRawData(
         response: Response
     ): Promise<any> {
-        const data = await response.json();
+        const text = await response.text();
+        if (!text) return [];
+        const data = JSON.parse(text);
         const posts = data?.post;
         if (Array.isArray(posts)) return posts;
         if (posts && typeof posts === 'object') return [posts];

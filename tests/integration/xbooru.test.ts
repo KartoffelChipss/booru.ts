@@ -1,17 +1,17 @@
-import { Safebooru } from '../../src';
+import { XBooru } from '../../src';
 import {
     expectNonDecreasing,
     expectNonIncreasing,
     expectValidPost,
 } from './helpers';
 
-describe('Safebooru (integration)', () => {
-    const site = new Safebooru();
+describe('XBooru (integration)', () => {
+    const site = new XBooru();
 
     it('exposes site metadata', () => {
-        expect(site.getName()).toBe('Safebooru');
-        expect(site.getSlug()).toBe('safebooru');
-        expect(site.getWebsite()).toBe('https://safebooru.org');
+        expect(site.getName()).toBe('XBooru');
+        expect(site.getSlug()).toBe('xbooru');
+        expect(site.getWebsite()).toBe('https://xbooru.com');
         expect(site.canSortRandomly()).toBe(true);
     });
 
@@ -19,12 +19,6 @@ describe('Safebooru (integration)', () => {
         const posts = await site.search({ limit: 5 });
         expect(posts.length).toBeGreaterThan(0);
         for (const post of posts) expectValidPost(post);
-    });
-
-    it('maps the rating:general filter to a safe rating', async () => {
-        const posts = await site.search({ tags: ['rating:general'], limit: 5 });
-        expect(posts.length).toBeGreaterThan(0);
-        for (const post of posts) expect(post.rating).toBe('safe');
     });
 
     it('filters by tag', async () => {
@@ -39,7 +33,6 @@ describe('Safebooru (integration)', () => {
         const posts = await site.search({ tags: ['1girl'], limit: 3 });
         const tag = posts[0].tags.find((t) => t.name === '1girl');
         expect(tag).toBeDefined();
-        expect(tag?.type).toBe('general');
         expect(typeof tag?.count).toBe('number');
         expect(tag!.count as number).toBeGreaterThan(0);
     });
@@ -86,8 +79,8 @@ describe('Safebooru (integration)', () => {
     });
 
     it('returns an empty array for a search with no matches', async () => {
-        // safebooru.org (like the rest of the Gelbooru DAPI family) returns
-        // a zero-byte body rather than "[]" when nothing matches.
+        // xbooru.com (like the rest of the Gelbooru DAPI family) returns a
+        // zero-byte body rather than "[]" when nothing matches.
         const posts = await site.search({
             tags: ['asdkjfhaslkdjfhqwerty12345nonexistent'],
         });

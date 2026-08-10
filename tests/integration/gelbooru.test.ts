@@ -94,5 +94,14 @@ describe('Gelbooru (integration)', () => {
             });
             expectNonIncreasing(posts.map((p) => Number(p.id)));
         });
+
+        it('returns an empty array for a search with no matches', async () => {
+            // gelbooru.com (like the rest of the Gelbooru DAPI family)
+            // returns a zero-byte body rather than "[]" when nothing matches.
+            const posts = await getSite().search({
+                tags: ['asdkjfhaslkdjfhqwerty12345nonexistent'],
+            });
+            expect(posts).toEqual([]);
+        });
     });
 });
