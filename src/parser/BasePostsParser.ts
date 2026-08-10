@@ -129,6 +129,21 @@ export class BasePostsParser implements PostsParser {
                 });
             }
         }
+        // Some DAPI instances (e.g. hypnohub.net) ignore `fields=tag_info`
+        // and only ever return `tags` as a space-separated string.
+        if (
+            !Array.isArray(rawPost.tag_info) &&
+            !Array.isArray(rawPost.tags) &&
+            typeof rawPost.tags === 'string'
+        ) {
+            for (const tagName of rawPost.tags.split(' ').filter(Boolean)) {
+                tags.push({
+                    name: tagName,
+                    count: null,
+                    type: null,
+                });
+            }
+        }
 
         return {
             createdAt: null,

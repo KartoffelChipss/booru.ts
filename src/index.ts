@@ -13,6 +13,7 @@ export * from './sites/Gelbooru';
 export * from './sites/Rule34';
 export * from './sites/Safebooru';
 export * from './sites/XBooru';
+export * from './sites/HypnoHub';
 export * from './sites/DanbooruDapiSite';
 export * from './sites/Danbooru';
 export * from './sites/AIBooru';
